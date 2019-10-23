@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css?family=Gayathri:700&display=swap');
+.calendar {
+    font-family: 'Gayathri', sans-serif;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    /* transform: translateX(60%); */
+    width: 40vw;
+    height: 90vh;
+    min-width: 400px;
+    min-height: 400px;
+    text-align: center;
+    /* box-shadow: 0px 0px 15px 10px #48b6fab3; */
+    background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    /* padding: 10%; */
+}
+
+
+.l_year {
+    position: relative;
+    font-size: 2vw;
+    left:28%;
+    top:10px;
+    height:11%;
+
+
+}
+.p_year{
+    position: relative;
+    font-size: 5vw;
+    color: #1420c2e8;
+    top:10px;
+    
+
+}
+
+
+
+
+
+.l_month {
+    position: relative;
+    font-size: 2vw;
+    left:-35%;
+    height:11%;
+    top:calc(-11% + 10px);
+
+
+}
+.p_month{
+    position: relative;
+    font-size: 5vw;
+    color: #1420c2e8;
+    top:10px;
+    
+}
+
+
+
+
+
+
+    
+
+
+
+.cell {
+    position: relative;
+    width: calc(99.99%/7);
+    height: calc(97% / 7);
+    color: black;
+    background: #fff;
+    float:left;
+    text-align: center;
+    line-height: calc(90vh/7);
+}
+.days {
+    position: relative;
+    width: 80%;
+    top:-5%;
+    height: 10%;
+    left:10%;
+    background: #fff;
+    margin: 0;
+    font-size: 1.3vw;
+
+}
+.day {
+    background: none;
+    height: 100%;
+    /* width: calc(90% / 7); */
+    line-height: 300%;
+    border-bottom: solid 2px #11bb;
+    
+}
+
+.month {
+    position: relative;
+    width: 80%;
+    height:80%;
+    font-size: 1.7vw;
+    left:10%;
+    top:-5%;
+  }
+
+.today > label{
+    z-index: 20;
+    position: absolute;
+    left:0%;
+    /* transform: translateX(-2px) translateY(-2px); */
+    color: #fff;
+    width:100%;
+    text-align: center;
+}
+
+.today::after{
+    border:solid 4px white;
+    border-radius: 50%;
+    box-shadow: 0px 0.3vw #ebeeee;
+    width:88%;
+    height:90%;
+    background-color: #65eef8;
+    z-index: 10;
+    content: "";
+    position: absolute;
+    left: 0%;
+    top:0%;
+}
+
+.chosed::after{
+    border:solid 4px white;
+    border-radius: 50%;
+    box-shadow: 0px 0.3vw #ebeeee;
+    width:88%;
+    height:90%;
+    background-color: #d8f865;
+    z-index: 10;
+    content: "";
+    position: absolute;
+    left: 0%;
+    top:0%;
+}
+.chosed > label{
+    z-index: 20;
+    position: absolute;
+    left: 0%;
+    width:100%;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+
+
+
+.timeList{
+    font-family: 'Gayathri', sans-serif;
+
+    width:20vw;
+    min-width:50px;
+    height:99.9%;
+    background-color:#2e6ffc;
+    color: white;
+    text-Align: center;
+    position: relative;
+    left:-20vw;
+    top:-111.9%;
+    /* box-shadow: -9px 0px 15px 10px #48b6fab3; */
+    font-size: 20px;
+    border-radius: 10px 0px 0px 10px;
+
+
+}
+
+
+
+.dateT{
+    position:relative;
+    width:100%;
+}
+
+.exitList{
+position:absolute;
+right:5px;
+margin:5px;
+}
+
+.input-t{
+    position:relative;
+    font-size: 20px;
+}
+
+.add{
+    position:relative;
+    /* bottom:5px; */
+    margin-left:5px;
+
+}
+.add:hover{
+    cursor: pointer;
+}
+
+.listx{
+    position: relative;
+    top:25px;
+    overflow-y:auto;
+    height:50vh;
+    display: block;
+    font-size: 12px;
+
+}
+
+
+
+.li{
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    left:30%;
+    width:50%;
+    text-align: left;
+
+}

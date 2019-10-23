@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"><!--font-->
+    <link href="https://fonts.googleapis.com/css?family=Baloo&display=swap" rel="stylesheet"><!--c font-->
+
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    
+    
+    <%-style%>
+    
+    <script>let au="<%=isAuthenticated%>"</script>
+
+    <title>C-nema</title>
+
+</head>
+
+<body>
+
+<div class='logod'>
+    <label class="logo C">C</label>
+    <label class="logo nema">-</label>
+    <label class="logo nema">n</label>
+    <label class="logo nema">e</label>
+    <label class="logo nema">m</label>
+    <label class="logo nema">a</label>
+</div>
+
+<script>
+    $('.logo').on('click', (e)=>{
+        window.location.href ='/';
+    });
+
+ </script>
+
+
+
+     <% if(isAuthenticated==true){%>
+    
+        <%include headerML.ejs%>
+        
+    <%}else{%>
+
+
+        <%include headerU.ejs%>
+
+    <%}%>
+
+
+
+
+
+
+
+
+<script>
+
+
+//menu
+$('.m-fi').on('click',()=>{
+    if($('.m-in').css('display')=='none')
+    {
+        $('.m-in').css({display:'block'});
+
+    }else
+    {
+        $('.m-in').css({display:'none'});
+    }
+});
+
+
+
+</script>

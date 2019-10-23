@@ -1,0 +1,341 @@
+<% include partiels/header.ejs%>
+
+
+
+<br>
+<label class="title">Add new movie to stage</label>
+<br>
+<div class="frm" >
+
+<label class="form lbl">Name</label>
+<br>			   		   
+<select class="form txt moviex" id="movie" >
+    <option value="" selected disabled hidden>Choose movie</option>
+</select>
+<br>			   
+				   
+<label class="form lbl">stage</label>
+<br>			   				   
+<select class="form txt stage"  id="stage">
+    <option value="" selected disabled hidden>Choose stage</option>
+</select>
+
+</div>
+<br>			   
+				   
+
+
+
+
+<script>
+//movies/stages list
+
+function msList(li)
+{
+    let selem;
+    let list;
+    let defau;
+    switch (li)
+    {
+        case 'movie':
+            list=$('.moviex');
+            selem=$('.moviex option:selected');
+            defau=$('<option value="" selected disabled hidden>Choose movie</option>');
+        break
+
+        case 'stage':
+            list=$('.stage');
+            selem=$('.stage option:selected');
+            defau=$('<option value="" selected disabled hidden>Choose stage</option>');
+        break
+    }
+    const xmlRequest=new XMLHttpRequest();
+    xmlRequest.open('get','/stageMovies/search?list='+li,5000,false);//<----
+
+    xmlRequest.onload=()=>
+    {
+    let JRq=JSON.parse(xmlRequest.response);
+
+    if (selem.val()=="")
+    {
+            list.empty();
+            list.append(defau);
+    }
+    else{
+         list.empty();
+    }
+
+
+      for( i in JRq)
+      {
+          if(li=='movie'){
+            list.append($('<option value=" '+JRq[i].movie+'">'+JRq[i].movie+'</option>'));
+          }
+          else
+          {
+            list.append($('<option value=" '+JRq[i].stage+'">'+JRq[i].stage+'</option>'));
+
+          }
+      }
+   list.val(selem.val());
+  }
+
+    xmlRequest.send();
+}
+
+
+$('.moviex').on('mouseenter',()=>
+{
+    msList('movie');
+});
+
+$('.list').on('mouseenter',()=>
+{
+    msList('stage');
+});
+
+$(function() {
+    msList('movie');
+    msList('stage');
+});
+
+
+</script>
+
+
+
+
+
+<section>
+<div class="title lbl">choose movie days from calendar</div>
+<br>
+
+
+<div class="calendar">
+
+<div class="l_year">
+<i class="fas fa-chevron-circle-left prev_y rt"></i>
+    <label class="p_year rt">year</label>
+<i class="fas fa-chevron-circle-right next_y rt"></i>
+
+</div>
+
+<div class="l_month">
+<i class="fas fa-chevron-circle-left prev_m rt"></i>
+    <label class="p_month rt">month</label>
+<i class="fas fa-chevron-circle-right next_m rt"></i>
+
+</div>
+
+
+<div class="days">
+    <label class="cell day">sun</label>
+    <label class="cell day">mon</label>
+    <label class="cell day">tus</label>
+    <label class="cell day">wed</label>
+    <label class="cell day">thu</label>
+    <label class="cell day">fri</label>
+    <label class="cell day">str</label>
+</div>
+
+<div class="month rt">
+
+</div>
+
+</div>
+</section>
+<script>
+
+let movieDate=new Date();
+    //get date
+       //draw the clendar days
+  function Cal(movieDate)
+  {
+      let c_movieDate=new Date(movieDate);
+      c_movieDate.setDate(1);
+
+       let first=c_movieDate.getDay();
+        // console.log(first);
+
+       c_movieDate.setDate(c_movieDate.getDate()-first);
+        // $( '.today' ).removeClass('today');//for difernt year/month
+        $('.month').empty();
+
+       $('.p_year').text(movieDate.getFullYear());
+       $('.p_month').text((movieDate.getMonth()+1));
+    //    $('.cell').css({background:' #9adcc8'});
+    //    $('.day').css({background:' #edf6f8'});
+        
+
+       for(let i=0;i<42;i++)
+       {
+           if($('.month > label').length==42){
+                $('.'+i).text(c_movieDate.getDate());
+                 $('.'+i).append($('<label></label>').addClass('rt'));
+                $('.'+i+' >label').text(c_movieDate.getDate());
+                 $('.'+i).attr('id', i+1-first);
+
+           }else
+           {
+                $('.month ').append($('<label></label>').addClass('cell rt '+i));
+                $('.'+i).append($('<label></label>').addClass('rt'));
+                $('.'+i+' >label').text(c_movieDate.getDate());
+                $('.'+i).attr('id', i+1-first);
+                // console.log( i+1-first);
+           }
+           if(c_movieDate.toDateString()==movieDate.toDateString())
+            {    
+                //  $('.'+i).css({background:'yellow'});
+                 $('.'+i).addClass('today');
+            }
+
+
+            c_movieDate.setDate(c_movieDate.getDate()+1);//move to next day
+
+       }
+        // console.log("e");
+       
+       }
+       Cal(movieDate);
+
+//arrows choosing date
+        $('.prev_y').on('click',()=>{
+            movieDate.setFullYear(movieDate.getFullYear()-1);
+            Cal(movieDate);
+        }); 
+        $('.next_y').on('click',()=>{
+            movieDate.setFullYear(movieDate.getFullYear()+1);
+            Cal(movieDate);
+        }); 
+        
+        $('.prev_m').on('click',()=>{
+            movieDate.setMonth(movieDate.getMonth()-1);
+            Cal(movieDate);
+        });
+        $('.next_m').on('click',()=>{
+            movieDate.setMonth(movieDate.getMonth()+1);
+            Cal(movieDate);
+        });
+
+
+            //choosing day
+        $('.month').on('click',(e)=>
+        {
+            $('.chosed').removeClass('chosed');
+            $('.timeList').remove();
+// console.log(movieDate);
+
+            let d_chosed=new Date(movieDate);
+
+            // let v=e.target.id;
+            let v=$(e.target).attr('id')==undefined?$(e.target).parent().attr('id'):$(e.target).attr('id');
+            $('#'+v).addClass('chosed');
+            console.log(v);
+
+            d_chosed.setDate( v);
+// console.log(d_chosed);
+
+            $('.calendar').append($('<div></div>').addClass('timeList rt'));
+            $('.timeList').append($('<label>x</label>').addClass('exitList'));
+
+            $('.timeList').append($('<br><label>'+d_chosed.toDateString()+'</label>').addClass('dateT rt'));
+
+            $('.exitList').on('click',()=>
+            {
+                 $('.timeList').remove();
+            });
+
+            $('.timeList').append($('<br><br><input type="time" class="input-t rt">'));        
+            $('.timeList').append($('<label><i class="fas fa-calendar-check rt"></i></label>').addClass('add rt'));     
+            $('.timeList').append($('<div></div>').addClass('listx rt'));
+            $('.listx').on('click',(e)=>{//delete movie time from list
+                if($(e.target).hasClass('fa-calendar-times')==true)
+                  {          
+                    console.log($(e.target).parent().text());
+                    deltime(d_chosed.toDateString(),$(e.target).parent().text(),$('#movie').val(),$('#stage').val());
+                    //   $(e.target).parent()
+                    timeLi(d_chosed.toDateString(),$('#movie').val(),$('#stage').val());
+                  }             
+             });
+            timeLi(d_chosed.toDateString(),$('#movie').val(),$('#stage').val());
+           
+            $('.add').on('click',()=>
+            {       
+                if($('.input-t').val().length==5)
+                {
+                    //chek if time pased asom its today date
+                    timeAdd(d_chosed.toDateString(),$('.input-t').val(),$('#movie').val(),$('#stage').val());
+                }
+
+            timeLi(d_chosed.toDateString(),$('#movie').val(),$('#stage').val());
+            });
+            
+
+        });
+
+
+
+function timeAdd(date,time,movie,stage)
+{
+
+    const XHrequest=new XMLHttpRequest();
+
+    XHrequest.open('post','/calendar/add?date='+date+'&time='+time+'&movie='+movie+'&stage='+stage,5000,false);
+
+    XHrequest.onload= () =>{
+        // console.log(XHrequest.response);
+        
+    }
+    XHrequest.send();
+
+}
+
+function deltime(date,time,movie,stage)
+{
+
+    const XHrequest=new XMLHttpRequest();
+
+    XHrequest.open('delete','/calendar/delete?date='+date+'&time='+time+'&movie='+movie+'&stage='+stage,5000,true);
+
+    XHrequest.onload= () =>{
+        // console.log(XHrequest.response);
+        
+    }
+    XHrequest.send();
+
+}
+
+//refresh the day movie time list
+function timeLi(date,movie,stage)
+{
+  const xmlRq=new XMLHttpRequest();
+  xmlRq.open('get','/calendar/time?date='+date+'&movie='+movie+'&stage='+stage,5000,true);
+  xmlRq.onload = ()=>{
+    let JRq=JSON.parse(xmlRq.response);
+      $('.listx').empty();
+
+      for( i in JRq)
+      {
+        $('.listx').append($('<h1 class="li rt"><i class="fas fa-calendar-times rt"></i>&nbsp;&nbsp;&nbsp;'+JRq[i].hour+'</h1><br>'));
+      }
+
+ }
+  xmlRq.send();
+}
+
+//exit hour list
+$('*').on('click',(e)=>{
+    if(!$(e.target).hasClass('rt'))
+         $('.timeList').remove();
+});
+
+
+
+
+let sele_movie;
+</script>
+
+
+
+
+<% include partiels/footer.ejs%>

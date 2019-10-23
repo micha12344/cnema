@@ -1,0 +1,46 @@
+.lbl{
+    color: dodgerblue;
+}
+
+.txt {
+    min-width:200px;
+    border: none;
+}
+.form {
+    position :relative;
+    display:block;
+
+}
+
+.frm{
+    position:absolute;
+    top:30vh;
+    left: 10%;
+    font-size: 20px;
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    color: #73bedc;
+    border: solid 1px blue;
+    text-shadow: 0px 0px 55px #73bedc;
+    border-radius: 10px;
+    text-align: center;
+    /*padding-top: .3%;*/
+    left: 300px;
+    top: 70px;
+    background-color: midnightblue;
+    cursor: pointer;
+}
+
+
+.title{
+    position: absolute;
+    transform: translateX(-50%)translateY(250%);
+    left: 50%;
+    color:wheat;
+    }
